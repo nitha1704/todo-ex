@@ -9,3 +9,83 @@
 body {
   font-family: "Roboto-Regular";
 }
+
+///// Checkbox customize /////
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  p {
+    position: relative;
+    top: -1px;
+  }
+}
+.datawow-checkbox-container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  width: 20px;
+  height: 20px;
+
+  /* Hide the browser's default checkbox */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border-radius: 6px;
+    border: 2.5px solid #585292;
+    background: white;
+
+    svg {
+      display: none;
+      position: absolute;
+      top: 48%;
+      left: 48%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  input:checked {
+    .checkmark {
+      background: red;
+    }
+  }
+}
+
+/* On mouse-over, add a white background color */
+.datawow-checkbox-container:hover input ~ .checkmark {
+  background: white;
+}
+
+/* When the checkbox is checked, add a white background */
+.datawow-checkbox-container input:checked ~ .checkmark {
+  background: #585292;
+}
+
+/* Show the checkmark when checked */
+.datawow-checkbox-container input:checked ~ .checkmark svg {
+  display: block;
+}
+
+.datawow-checkbox-container.active {
+  .checkmark {
+    border: none;
+  }
+}

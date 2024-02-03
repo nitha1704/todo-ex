@@ -28,12 +28,55 @@ const TodoSection = styled.div`
         background: white;
         width: auto;
         height: 100%;
+        transition: 0.2s;
       }
     }
     .progress-track {
       display: flex;
       gap: 5px;
       color: #ebb9b8;
+    }
+  }
+
+  .todo-list {
+    margin-top: 34px;
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      span {
+        font-size: 24px;
+        font-family: "Roboto-Bold";
+      }
+    }
+    .tasks {
+      .task {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #fff;
+        border-radius: 36px;
+        margin-bottom: 17px;
+        padding: 14px 20px 13px 20px;
+        .info {
+          font-family: "Roboto-Medium";
+          display: flex;
+          align-items: center;
+          gap: 16px;
+
+          .task-title {
+            color: #2e2e2e;
+          }
+        }
+        .etc {
+          display: flex;
+          cursor: pointer;
+        }
+      }
+      .item:last-of-type {
+        margin-bottom: 0;
+      }
     }
   }
 `;
