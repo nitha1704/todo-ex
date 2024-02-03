@@ -12,7 +12,8 @@
     "react-router-dom": "^6.22.0",
     "react-scripts": "5.0.1",
     "sass": "^1.70.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "uuid": "^9.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@tsconfig/create-react-app": "^2.0.2",
     "@types/react-dom": "^18.2.18",
+    "@types/uuid": "^9.0.8",
     "web-vitals": "^3.5.2"
   }
 }

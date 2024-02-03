@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { TodoSection } from "./todo.styled";
+import { v4 as uuidv4 } from "uuid";
 
 const Todo = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [todoList, setTodoList] = useState<any>([]);
+  const [todoText, settodoText] = useState<string | number>("");
 
   const [completedItemNumber, setCompletedItemNumber] = useState<number>(0);
-  const [progressBarWidth, setProgressBarWidth] = useState("");
+  const [progressBarWidth, setProgressBarWidth] = useState<string>("");
 
   const calcProgress = () => {
     const todoLength = todoList.length;
@@ -22,11 +24,13 @@ const Todo = () => {
       .then((res) => res.json())
       .then((res) => {
         setTodoList(res);
-        setIsLoading(false);
       })
       .catch((err) => {
         alert(err);
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -34,6 +38,31 @@ const Todo = () => {
     let todoListArr = [...todoList];
     todoListArr[index].completed = e.target.checked;
     setTodoList(todoListArr);
+  };
+
+  const addTask = () => {
+    setIsLoading(true);
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = {
+      id: uuidv4(),
+      title: todoText,
+      completed: false,
+    };
+
+    fetch("http://localhost:3001/todos", {
+      method: "POST",
+      body: JSON.stringify(raw),
+      headers: myHeaders,
+    })
+      .then((res) => {
+        console.log(res);
+        settodoText("");
+        getTodoList();
+      })
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -102,7 +131,13 @@ const Todo = () => {
                               </span>
                             </label>
                           </div>
-                          <span className="task-title">{item?.title}</span>
+                          <span
+                            className={`task-title ${
+                              item?.completed ? "completed" : ""
+                            }`}
+                          >
+                            {item?.title}
+                          </span>
                         </div>
                         <div className="etc">
                           <svg
@@ -123,6 +158,23 @@ const Todo = () => {
                   })}
               </div>
             </div>
+
+            <div className="add-task">
+              <input
+                type="text"
+                readOnly={isLoading}
+                placeholder="Add your todo..."
+                onKeyUp={(event: any) => {
+                  if (event.key === "Enter") {
+                    addTask();
+                  } else {
+                    settodoText(event.target.value);
+                  }
+                }}
+              />
+            </div>
+
+            <h1>{todoText}</h1>
           </div>
         ) : (
           <h1>Loading...</h1>

@@ -68,6 +68,11 @@ const TodoSection = styled.div`
           .task-title {
             color: #2e2e2e;
           }
+          .task-title.completed {
+            font-family: "Roboto-Regular";
+            color: #a9a9a9;
+            text-decoration: line-through;
+          }
         }
         .etc {
           display: flex;
@@ -77,6 +82,27 @@ const TodoSection = styled.div`
       .item:last-of-type {
         margin-bottom: 0;
       }
+    }
+  }
+
+  .add-task {
+    input {
+      font-family: "Roboto-Medium";
+      background: #fff;
+      border-radius: 36px;
+      margin-bottom: 17px;
+      padding: 14px 20px 13px 20px;
+      border: none;
+      outline: none;
+      width: 100%;
+    }
+    input::placeholder {
+      font-family: "Roboto-Regular";
+      color: #bcbcbc;
+    }
+    input:read-only {
+      pointer-events: none;
+      background: lightgray;
     }
   }
 `;
