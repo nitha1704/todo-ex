@@ -75,8 +75,41 @@ const TodoSection = styled.div`
           }
         }
         .etc {
+          position: relative;
           display: flex;
           cursor: pointer;
+
+          .menu {
+            position: absolute;
+            top: 25px;
+            left: -80px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.1);
+            padding: 10px 6px;
+            
+            z-index: 1;
+            min-width: 111px;
+            .edit,
+            .delete {
+              font-family: "Roboto-Medium";
+              font-size: 14px;
+              border-radius: 10px;
+              padding: 8px 15px;
+              transition: 0.15s;
+              &:hover {
+                background: #585292;
+                color: white;
+              }
+            }
+            .edit {
+              color: #2e2e2e;
+          
+            }
+            .delete {
+              color: #e07c7c;
+            }
+          }
         }
       }
       .item:last-of-type {
