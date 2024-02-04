@@ -57,7 +57,6 @@ const TodoSection = styled.div`
       font-family: "Roboto-Medium";
       background: #fff;
       border-radius: 36px;
-      margin-bottom: 17px;
       padding: 14px 20px 13px 20px;
       border: none;
       outline: none;
