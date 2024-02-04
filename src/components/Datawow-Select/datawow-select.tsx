@@ -39,12 +39,6 @@ const DatawowSelect = ({ data }: any) => {
 
   return (
     <DataWowSelect className="datawow-select">
-      {/* <select onChange={(e) => handleTodoFilter(e)}>
-        <option value="all">All</option>
-        <option value="done">Done</option>
-        <option value="undone">Undone</option>
-      </select> */}
-
       <div className="datawow-select container">
         <div
           className="select-box"
@@ -65,6 +59,7 @@ const DatawowSelect = ({ data }: any) => {
                         optionPlaceholderValue === item?.value ? "active" : ""
                       }`}
                       onClick={() => handleSelect(item)}
+                      key={item?.id}
                     >
                       <input type="radio" className="radio" id=" " name=" " />
                       <label htmlFor="">{item?.name}</label>
