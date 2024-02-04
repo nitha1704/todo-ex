@@ -14,7 +14,6 @@ const TodoTask = ({ item, index }: any) => {
     handleOpenEdit,
     handleOpenMenu,
     handleSubmitEdit,
-    handleCloseAllMenu,
 
     handleClose,
     setHandleClose,
