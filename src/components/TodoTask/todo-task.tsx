@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, { useContext, useEffect } from "react";
 import { GlobalContext } from "../../context";
 import { Task } from "./todo-task.styled";
 const TodoTask = ({ item, index }: any) => {
@@ -9,9 +9,27 @@ const TodoTask = ({ item, index }: any) => {
     handleOpenEdit,
     handleOpenMenu,
     handleSubmitEdit,
+    handleCloseAllMenu,
   } = useContext(GlobalContext);
+
+  const handleCloseEditMenu = (event: any) => {
+    const menus = document.querySelectorAll(".task .menu");
+    menus.forEach((menu) => {
+      if (menu && !menu.contains(event.target)) {
+        handleCloseAllMenu();
+      }
+    });
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleCloseEditMenu);
+    return () => {
+      document.removeEventListener("mousedown", handleCloseEditMenu);
+    };
+  }, []);
+
   return (
-    <Task className="task" key={item?.id}>
+    <Task className="task">
       {item?.isEdit ? (
         <div className="task-edit">
           <input

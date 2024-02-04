@@ -2,12 +2,11 @@ import { useContext, useEffect } from "react";
 import { DatawowSelect, TodoTask } from "..";
 import { TodoSection } from "./todo.styled";
 import { GlobalContext } from "../../context";
-
+import { TaskInterFace } from "../../interfaces";
 const Todo = () => {
   const {
     isLoading,
     todoList,
-    todoText,
     setTodoText,
     completedItemNumber,
     progressBarWidth,
@@ -18,17 +17,12 @@ const Todo = () => {
 
   const status = [
     {
+      id: "1",
       value: "all",
       name: "All",
     },
-    {
-      value: "done",
-      name: "Done",
-    },
-    {
-      value: "undone",
-      name: "Undone",
-    },
+    { id: "2", value: "done", name: "Done" },
+    { id: "3", value: "undone", name: "Undone" },
   ];
 
   useEffect(() => {
@@ -65,8 +59,8 @@ const Todo = () => {
               <div className="tasks">
                 {todoList &&
                   todoList.length > 0 &&
-                  todoList.map((item: any, index: number) => {
-                    return <TodoTask item={item} index={index} key={item?.id} />;
+                  todoList.map((item: TaskInterFace, index: number) => {
+                    return <TodoTask item={item} index={index} />;
                   })}
               </div>
             </div>
@@ -76,11 +70,11 @@ const Todo = () => {
                 type="text"
                 readOnly={isLoading}
                 placeholder="Add your todo..."
-                onKeyUp={(event: any) => {
+                onKeyUp={(event: React.KeyboardEvent<HTMLInputElement>) => {
                   if (event.key === "Enter") {
                     addTask();
                   } else {
-                    setTodoText(event.target.value);
+                    setTodoText((event.target as HTMLInputElement).value);
                   }
                 }}
               />

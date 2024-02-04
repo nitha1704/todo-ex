@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { GlobalContext } from "../../context";
 import { DataWowSelect } from "./datawow-select.styled";
+import { DatawowSelectInterFace } from "../../interfaces";
 
 const DatawowSelect = ({ data }: any) => {
   const { handleTodoFilter } = useContext(GlobalContext);
@@ -19,7 +20,7 @@ const DatawowSelect = ({ data }: any) => {
     }
   };
 
-  const handleSelect = (item: any) => {
+  const handleSelect = (item: DatawowSelectInterFace) => {
     setOptionPlaceholderText(item?.name);
 
     // Set Timeout for smooth animation when option fade up
@@ -52,7 +53,7 @@ const DatawowSelect = ({ data }: any) => {
             <div className="wrapper">
               {data &&
                 data.length > 0 &&
-                data.map((item: any) => {
+                data.map((item: DatawowSelectInterFace) => {
                   return (
                     <div
                       className={`option ${

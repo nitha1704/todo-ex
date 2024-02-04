@@ -1,15 +1,16 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-const GlobalContext = React.createContext<any>({});
+import { TaskInterFace } from "../interfaces";
 
+const GlobalContext = React.createContext<any>({});
 export const GlobalProvider = ({
   children,
 }: {
   children?: React.ReactNode;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [allTodoList, setAllTodoList] = useState<any>([]);
-  const [todoList, setTodoList] = useState<any>([]);
+  const [allTodoList, setAllTodoList] = useState<TaskInterFace[]>([]);
+  const [todoList, setTodoList] = useState<TaskInterFace[]>([]);
   const [todoText, setTodoText] = useState<string | number>("");
 
   const [completedItemNumber, setCompletedItemNumber] = useState<number>(0);
@@ -17,7 +18,9 @@ export const GlobalProvider = ({
 
   const calcProgress = () => {
     const todoLength = todoList.length;
-    const completedItem = todoList.filter((item: any) => item.completed).length;
+    const completedItem = todoList.filter(
+      (item: TaskInterFace) => item.completed
+    ).length;
     const progressBarWidths = ((completedItem / todoLength) * 100).toFixed(2);
     setProgressBarWidth(progressBarWidths + "%");
     setCompletedItemNumber(completedItem);
@@ -28,7 +31,7 @@ export const GlobalProvider = ({
     await fetch("http://localhost:3001/todos")
       .then((res) => res.json())
       .then((res) => {
-        const data = res.map((item: any) => {
+        const data = res.map((item: TaskInterFace) => {
           return {
             ...item,
             isMenuOpen: false,
@@ -47,10 +50,14 @@ export const GlobalProvider = ({
       });
   };
 
-  const handleCheckbox = (e: any, index: number, item: any) => {
+  const handleCheckbox = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number,
+    item: TaskInterFace
+  ) => {
     // Update UI
     let todoListArr = [...todoList];
-    todoListArr[index].completed = e.target.checked;
+    todoListArr[index].completed = event.target.checked;
     setTodoList(todoListArr);
 
     // Update API
@@ -59,7 +66,7 @@ export const GlobalProvider = ({
 
     const raw = {
       title: item.title,
-      completed: e.target.checked,
+      completed: event.target.checked,
     };
 
     fetch(`http://localhost:3001/todos/${item.id}`, {
@@ -73,12 +80,11 @@ export const GlobalProvider = ({
       .catch((err) => console.log(err));
   };
 
-  const handleOpenMenu = (index: number, item: any) => {
-    console.log("open");
+  const handleOpenMenu = (index: number, item: TaskInterFace) => {
     // Update UI
     //let todoListArr = [...todoList];
 
-    let todoListArr = todoList.map((item: any) => {
+    let todoListArr = todoList.map((item: TaskInterFace) => {
       if (item.isMenuOpen) {
         return {
           ...item,
@@ -92,8 +98,22 @@ export const GlobalProvider = ({
     todoListArr[index].isMenuOpen = !todoListArr[index].isMenuOpen;
     setTodoList(todoListArr);
   };
+  const handleCloseAllMenu = () => {
+    let todoListArr = todoList.map((item: TaskInterFace) => {
+      if (item.isMenuOpen) {
+        return {
+          ...item,
+          isMenuOpen: false,
+          isEdit: false,
+        };
+      } else {
+        return item;
+      }
+    });
+    setTodoList(todoListArr);
+  };
 
-  const handleOpenEdit = (index: number, item: any) => {
+  const handleOpenEdit = (index: number, item: TaskInterFace) => {
     // Update UI
     let todoListArr = [...todoList];
     todoListArr[index].isEdit = true;
@@ -102,16 +122,19 @@ export const GlobalProvider = ({
     console.log(item);
   };
 
-  const handleEditTextTodo = (e: any, index: number, item: any) => {
+  const handleEditTextTodo = (
+    event: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     // Update UI
     let todoListArr = [...todoList];
-    todoListArr[index].title = e.target.value;
+    todoListArr[index].title = (event.target as HTMLInputElement).value;
     setTodoList(todoListArr);
 
-    console.log(e.target.value);
+    console.log((event.target as HTMLInputElement).value);
   };
 
-  const handleSubmitEdit = (item: any) => {
+  const handleSubmitEdit = (item: TaskInterFace) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -126,6 +149,7 @@ export const GlobalProvider = ({
     })
       .then((res) => {
         getTodoList();
+        handleCloseAllMenu();
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
@@ -172,7 +196,7 @@ export const GlobalProvider = ({
   };
 
   const handleTodoFilter = (value: string) => {
-    const filterItem = allTodoList.filter((item: any) => {
+    const filterItem = allTodoList.filter((item: TaskInterFace) => {
       return value === "done"
         ? item.completed
         : value === "undone"
@@ -206,10 +230,11 @@ export const GlobalProvider = ({
         handleOpenMenu,
         handleSubmitEdit,
         handleTodoFilter,
+        handleCloseAllMenu,
         addTask,
 
         getTodoList,
-        calcProgress
+        calcProgress,
       }}
     >
       {children}

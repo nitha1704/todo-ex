@@ -1,12 +1,13 @@
 {
   "todos": [
     {
-      "title": "Publish a new blog",
-      "completed": false,
+      "title": "Publish a new blogqqq",
+      "completed": true,
       "id": "5fe3f4ca-193c-4170-83c1-cb5a19908603"
     },
     {
       "title": "Buy food for dinner",
+      "completed": true,
       "id": "5fe3f4ca-193c-4170-83c1-cb5a19908601"
     },
     {
@@ -16,7 +17,7 @@
     },
     {
       "title": "Write a react blog post",
-      "completed": true,
+      "completed": false,
       "id": "5fe3f4ca-193c-4170-83c1-cb5a19908602"
     },
     {
@@ -26,27 +27,27 @@
     },
     {
       "title": "Watching Netflix",
-      "completed": false,
+      "completed": true,
       "id": "8d283af0-32d4-4217-a50a-c5f40668b5e0"
     },
     {
-      "title": "Coding 5 hours",
+      "title": "Coding 30 hours",
+      "completed": false,
       "id": "2d4ed7fe-63b5-4690-a42c-b047bbb1e682"
     },
     {
-      "title": "Play Lies of P",
-      "completed": true,
+      "title": "Play Lies of Pp",
+      "completed": false,
       "id": "1c3e9b6f-cfa9-478d-95fa-afe809e144bf"
     },
     {
-      "id": "c0621407-1015-4b3d-a558-1e89fb61fbdf",
-      "title": "play bg3",
-      "completed": false
+      "title": "play bg1",
+      "id": "c0621407-1015-4b3d-a558-1e89fb61fbdf"
     },
     {
-      "id": "ec6c091c-18a9-4580-a4ba-c5c8df525929",
-      "title": "play bg2",
-      "completed": false
+      "title": "LunchSSS",
+      "completed": true,
+      "id": "1436d635-101f-4b62-a905-2a42e186251a"
     }
   ]
 }
