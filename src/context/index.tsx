@@ -76,9 +76,7 @@ export const GlobalProvider = ({
       body: JSON.stringify(raw),
       headers: myHeaders,
     })
-      .then((res) => {
-        getTodoList();
-      })
+      .then((res) => {})
       .catch((err) => console.log(err));
   };
 
@@ -116,7 +114,6 @@ export const GlobalProvider = ({
   };
 
   const handleSubmitEdit = (item: TaskInterFace) => {
-
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -218,7 +215,7 @@ export const GlobalProvider = ({
         calcProgress,
 
         handleClose,
-        setHandleClose
+        setHandleClose,
       }}
     >
       {children}
