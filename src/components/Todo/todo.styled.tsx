@@ -165,6 +165,16 @@ const TodoSection = styled.div`
       background: lightgray;
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 61px 51px 63px 51px;
+  }
+  @media (max-width: 576px) {
+    padding: 31px 25px 33px 25px;
+  }
+  @media (max-width: 400px) {
+    padding: 31px 15px 33px 15px;
+  }
 `;
 
 export { TodoSection };

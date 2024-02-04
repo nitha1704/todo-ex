@@ -31,13 +31,13 @@
     },
     {
       "title": "Coding",
-      "completed": true,
+      "completed": false,
       "id": "2d4ed7fe-63b5-4690-a42c-b047bbb1e682"
     },
     {
-      "id": "1c3e9b6f-cfa9-478d-95fa-afe809e144bf",
       "title": "Play Lies of P",
-      "completed": false
+      "completed": true,
+      "id": "1c3e9b6f-cfa9-478d-95fa-afe809e144bf"
     }
   ]
 }
