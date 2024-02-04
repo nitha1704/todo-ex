@@ -13,6 +13,7 @@ const Todo = () => {
     addTask,
     getTodoList,
     calcProgress,
+    handleCloseAllMenu
   } = useContext(GlobalContext);
 
   const status = [
@@ -31,8 +32,6 @@ const Todo = () => {
 
   useEffect(() => {
     calcProgress();
-
-    console.log(todoList);
   }, [todoList]);
 
   return (
@@ -60,7 +59,7 @@ const Todo = () => {
                 {todoList &&
                   todoList.length > 0 &&
                   todoList.map((item: TaskInterFace, index: number) => {
-                    return <TodoTask item={item} index={index} />;
+                    return <TodoTask item={item} index={index} key={item?.id} />;
                   })}
               </div>
             </div>

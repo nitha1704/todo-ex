@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { TaskInterFace } from "../interfaces";
 
@@ -15,6 +15,8 @@ export const GlobalProvider = ({
 
   const [completedItemNumber, setCompletedItemNumber] = useState<number>(0);
   const [progressBarWidth, setProgressBarWidth] = useState<string>("");
+
+  const [handleClose, setHandleClose] = useState<number>(0);
 
   const calcProgress = () => {
     const todoLength = todoList.length;
@@ -81,9 +83,6 @@ export const GlobalProvider = ({
   };
 
   const handleOpenMenu = (index: number, item: TaskInterFace) => {
-    // Update UI
-    //let todoListArr = [...todoList];
-
     let todoListArr = todoList.map((item: TaskInterFace) => {
       if (item.isMenuOpen) {
         return {
@@ -98,28 +97,12 @@ export const GlobalProvider = ({
     todoListArr[index].isMenuOpen = !todoListArr[index].isMenuOpen;
     setTodoList(todoListArr);
   };
-  const handleCloseAllMenu = () => {
-    let todoListArr = todoList.map((item: TaskInterFace) => {
-      if (item.isMenuOpen) {
-        return {
-          ...item,
-          isMenuOpen: false,
-          isEdit: false,
-        };
-      } else {
-        return item;
-      }
-    });
-    setTodoList(todoListArr);
-  };
 
   const handleOpenEdit = (index: number, item: TaskInterFace) => {
     // Update UI
     let todoListArr = [...todoList];
     todoListArr[index].isEdit = true;
     setTodoList(todoListArr);
-
-    console.log(item);
   };
 
   const handleEditTextTodo = (
@@ -130,16 +113,16 @@ export const GlobalProvider = ({
     let todoListArr = [...todoList];
     todoListArr[index].title = (event.target as HTMLInputElement).value;
     setTodoList(todoListArr);
-
-    console.log((event.target as HTMLInputElement).value);
   };
 
   const handleSubmitEdit = (item: TaskInterFace) => {
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     const raw = {
       title: item?.title,
+      completed: item?.completed,
     };
 
     fetch(`http://localhost:3001/todos/${item.id}`, {
@@ -149,7 +132,6 @@ export const GlobalProvider = ({
     })
       .then((res) => {
         getTodoList();
-        handleCloseAllMenu();
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
@@ -230,11 +212,13 @@ export const GlobalProvider = ({
         handleOpenMenu,
         handleSubmitEdit,
         handleTodoFilter,
-        handleCloseAllMenu,
         addTask,
 
         getTodoList,
         calcProgress,
+
+        handleClose,
+        setHandleClose
       }}
     >
       {children}

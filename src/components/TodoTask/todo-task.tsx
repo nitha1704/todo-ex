@@ -1,8 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { GlobalContext } from "../../context";
 import { Task } from "./todo-task.styled";
+import { TaskInterFace } from "../../interfaces";
+
 const TodoTask = ({ item, index }: any) => {
   const {
+    todoList,
+    setTodoList,
+
     handleCheckbox,
     handleDeleteTodo,
     handleEditTextTodo,
@@ -10,13 +15,17 @@ const TodoTask = ({ item, index }: any) => {
     handleOpenMenu,
     handleSubmitEdit,
     handleCloseAllMenu,
+
+    handleClose,
+    setHandleClose,
   } = useContext(GlobalContext);
 
   const handleCloseEditMenu = (event: any) => {
     const menus = document.querySelectorAll(".task .menu");
     menus.forEach((menu) => {
       if (menu && !menu.contains(event.target)) {
-        handleCloseAllMenu();
+        //Set Mockup value to useEffect for get current state array
+        setHandleClose((prev: number) => prev + 1);
       }
     });
   };
@@ -27,6 +36,17 @@ const TodoTask = ({ item, index }: any) => {
       document.removeEventListener("mousedown", handleCloseEditMenu);
     };
   }, []);
+
+  useEffect(() => {
+    let todoListArr = todoList.map((item: TaskInterFace) => {
+      return {
+        ...item,
+        isMenuOpen: false,
+        isEdit: false,
+      };
+    });
+    setTodoList(todoListArr);
+  }, [handleClose]);
 
   return (
     <Task className="task">
