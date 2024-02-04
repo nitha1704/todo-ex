@@ -171,27 +171,17 @@ export const GlobalProvider = ({
       .finally(() => setIsLoading(false));
   };
 
-  const handleTodoFilter = (e: any) => {
+  const handleTodoFilter = (value: string) => {
     const filterItem = allTodoList.filter((item: any) => {
-      return e.target.value === "done"
+      return value === "done"
         ? item.completed
-        : e.target.value === "undone"
+        : value === "undone"
         ? !item.completed
         : item;
     });
 
     setTodoList(filterItem);
   };
-
-  useEffect(() => {
-    getTodoList();
-  }, []);
-
-  useEffect(() => {
-    calcProgress();
-
-    console.log(todoList);
-  }, [todoList]);
 
   return (
     <GlobalContext.Provider
@@ -217,6 +207,9 @@ export const GlobalProvider = ({
         handleSubmitEdit,
         handleTodoFilter,
         addTask,
+
+        getTodoList,
+        calcProgress
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DatawowSelect } from "..";
 import { TodoSection } from "./todo.styled";
 import { GlobalContext } from "../../context";
@@ -26,7 +26,35 @@ const Todo = () => {
     handleSubmitEdit,
     handleTodoFilter,
     addTask,
+
+    getTodoList,
+    calcProgress,
   } = useContext(GlobalContext);
+
+  const status = [
+    {
+      value: "all",
+      name: "All",
+    },
+    {
+      value: "done",
+      name: "Done",
+    },
+    {
+      value: "undone",
+      name: "Undone",
+    },
+  ];
+
+  useEffect(() => {
+    getTodoList();
+  }, []);
+
+  useEffect(() => {
+    calcProgress();
+
+    console.log(todoList);
+  }, [todoList]);
 
   return (
     <TodoSection className="todo">
@@ -47,7 +75,7 @@ const Todo = () => {
             <div className="todo-list">
               <div className="title">
                 <span>Tasks</span>
-                <DatawowSelect />
+                <DatawowSelect data={status} />
               </div>
               <div className="tasks">
                 {todoList &&
