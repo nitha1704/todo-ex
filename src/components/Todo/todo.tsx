@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { DatawowSelect } from "..";
 import { TodoSection } from "./todo.styled";
 import { v4 as uuidv4 } from "uuid";
 
 const Todo = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const [allTodoList, setAllTodoList] = useState<any>([]);
   const [todoList, setTodoList] = useState<any>([]);
   const [todoText, setTodoText] = useState<string | number>("");
 
@@ -30,6 +33,7 @@ const Todo = () => {
             isEdit: false,
           };
         });
+        setAllTodoList(data);
         setTodoList(data);
       })
       .catch((err) => {
@@ -68,8 +72,21 @@ const Todo = () => {
   };
 
   const handleOpenMenu = (index: number, item: any) => {
+    console.log("open");
     // Update UI
-    let todoListArr = [...todoList];
+    //let todoListArr = [...todoList];
+
+    let todoListArr = todoList.map((item: any) => {
+      if (item.isMenuOpen) {
+        return {
+          ...item,
+          isMenuOpen: false,
+        };
+      } else {
+        return item;
+      }
+    });
+
     todoListArr[index].isMenuOpen = !todoListArr[index].isMenuOpen;
     setTodoList(todoListArr);
   };
@@ -152,6 +169,19 @@ const Todo = () => {
       .finally(() => setIsLoading(false));
   };
 
+  const handleTodoFilter = (e: any) => {
+    console.log(e);
+    const filterItem = allTodoList.filter((item: any) => {
+      return e.target.value === "done"
+        ? item.completed
+        : e.target.value === "undone"
+        ? !item.completed
+        : item;
+    });
+
+    setTodoList(filterItem);
+  };
+
   useEffect(() => {
     getTodoList();
   }, []);
@@ -181,12 +211,12 @@ const Todo = () => {
             <div className="todo-list">
               <div className="title">
                 <span>Tasks</span>
-                <select name="cars" id="cars">
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
-                </select>
+                {/* <select onChange={(e) => handleTodoFilter(e)}>
+                  <option value="all">All</option>
+                  <option value="done">Done</option>
+                  <option value="undone">Undone</option>
+                </select> */}
+                <DatawowSelect />
               </div>
               <div className="tasks">
                 {todoList &&

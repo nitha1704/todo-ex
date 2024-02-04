@@ -2,11 +2,11 @@
   "todos": [
     {
       "title": "Publish a new blog",
+      "completed": true,
       "id": "5fe3f4ca-193c-4170-83c1-cb5a19908603"
     },
     {
       "title": "Buy food for dinner",
-      "completed": false,
       "id": "5fe3f4ca-193c-4170-83c1-cb5a19908601"
     },
     {
@@ -16,25 +16,22 @@
     },
     {
       "title": "Write a react blog post",
-      "completed": false,
+      "completed": true,
       "id": "5fe3f4ca-193c-4170-83c1-cb5a19908602"
     },
     {
       "title": "Play Palworld with Friend",
+      "completed": false,
       "id": "62647a4a-c5d7-424a-b46a-0a4b4196746e"
     },
     {
       "title": "Watching Netflix",
+      "completed": false,
       "id": "8d283af0-32d4-4217-a50a-c5f40668b5e0"
     },
     {
-      "title": "zxcv",
+      "title": "Coding",
       "id": "2d4ed7fe-63b5-4690-a42c-b047bbb1e682"
-    },
-    {
-      "title": "hello",
-      "completed": true,
-      "id": "f2039c2a-52b4-498a-802c-d55260b7db5b"
     }
   ]
 }
