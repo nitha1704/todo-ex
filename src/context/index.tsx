@@ -44,7 +44,7 @@ export const GlobalProvider = ({
         setTodoList(data);
       })
       .catch((err) => {
-        alert(err);
+        alert("Please start server before run this app");
         console.log(err);
       })
       .finally(() => {

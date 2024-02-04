@@ -57,10 +57,12 @@ const Todo = () => {
               </div>
               <div className="tasks">
                 {todoList &&
-                  todoList.length > 0 &&
+                  todoList.length > 0 ?
                   todoList.map((item: TaskInterFace, index: number) => {
                     return <TodoTask item={item} index={index} key={item?.id} />;
-                  })}
+                  })
+                  : <p style={{marginBottom: '20px'}}>No item</p>
+                }
               </div>
             </div>
 
