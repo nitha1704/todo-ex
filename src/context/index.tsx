@@ -76,7 +76,9 @@ export const GlobalProvider = ({
       body: JSON.stringify(raw),
       headers: myHeaders,
     })
-      .then((res) => {})
+      .then((res) => {
+        getTodoList();
+      })
       .catch((err) => console.log(err));
   };
 
